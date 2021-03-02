@@ -20,17 +20,19 @@ export default class Signup extends Component {
     event.preventDefault();
     const { username, password } = this.state;
     signup(username, password)
-      .then(data => {
-        if (data.message) {
+      .then(user => {
+        if (user.message) {
           this.setState({
-            message: data.message,
+            message: user.message,
             username: '',
             password: ''
           })
         } else {
           // the response from the server is a user object -> signup was successful
           // we want to put the user object in the state of App.js
-          console.log(data)
+          console.log(user)
+          this.props.setUser(user);
+          this.props.history.push('/projects');
         }
       })
   }
